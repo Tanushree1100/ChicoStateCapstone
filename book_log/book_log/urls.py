@@ -1,8 +1,7 @@
-"""
-URL configuration for book_log project.
+"""project1 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+    https://docs.djangoproject.com/en/3.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -18,7 +17,17 @@ from django.contrib import admin
 from django.urls import path
 from log import views as log_views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', log_views.home)
+    path('join/', log_views.join),
+    path('login/', log_views.user_login),
+    path('logout/', log_views.user_logout),
+
+
+
+
+  
+
+  
 ]
