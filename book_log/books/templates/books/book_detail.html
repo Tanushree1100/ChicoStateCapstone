@@ -1,0 +1,7 @@
+<!-- books/templates/books/book_detail.html -->
+<h1>{{ book.title }}</h1>
+<p>Author: {{ book.author }}</p>
+<p>Genre: {{ book.genre }}</p>
+<p>Publication Date: {{ book.publication_date }}</p>
+<a href="{% url 'book_edit' pk=book.pk %}">Edit</a>
+<a href="{% url 'book_list' %}">Back to list</a>

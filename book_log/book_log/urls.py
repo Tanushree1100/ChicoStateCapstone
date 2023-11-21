@@ -16,18 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from log import views as log_views
-
+from books import views as book_views
+from django.contrib import admin
+from django.urls import path, include  # <-- Add this import line
+from log import views as log_views
+from books import views as book_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('join/', log_views.join),
     path('login/', log_views.user_login),
     path('logout/', log_views.user_logout),
-
-
-
-
-  
-
-  
+    path('books/', include('books.urls')),
 ]

@@ -1,0 +1,8 @@
+<!-- books/templates/books/book_edit.html -->
+<h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Book</h1>
+<form method="post" action="{% if form.instance.pk %}{% url 'book_edit' pk=form.instance.pk %}{% else %}{% url 'book_new' %}{% endif %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if form.instance.pk %}Update{% else %}Add{% endif %} Book</button>
+</form>
+<a href="{% url 'book_list' %}">Back to list</a>
