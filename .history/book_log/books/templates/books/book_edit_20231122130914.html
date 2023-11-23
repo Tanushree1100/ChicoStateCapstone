@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Book</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Book</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <form method="post" action="{% if form.instance.pk %}{% url 'book_edit' pk=form.instance.pk %}{% else %}{% url 'book_new' %}{% endif %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">{% if form.instance.pk %}Update{% else %}Add{% endif %} Book</button>
+        </form>
+        <a href="{% url 'book_list' %}">Back to list</a>
+        <!-- Add any additional content related to book editing here -->
+        <!-- books/templates/books/book_edit.html -->
+{% if messages_on_page %}
+<ul class="messages">
+  {% for message in messages_on_page %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<!-- Your existing form rendering code goes here -->
+
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+
+</body>
+</html>

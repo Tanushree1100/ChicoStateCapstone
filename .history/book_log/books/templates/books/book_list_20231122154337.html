@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <!-- Add jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>Book List</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <ul id="book-list">
+            {% for book in books %}
+                <li>
+                    <a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a>
+                    <form id="book-form-{{ book.pk }}" class="book-form" data-book-id="{{ book.pk }}" method="post" action="{% url 'book_delete' pk=book.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="button" class="finish-reading-btn">Finished reading</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'book_new' %}">Add a new book</a>
+
+        <!-- Add any additional content related to the book list here -->
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->   
+    <!-- Add any additional scripts or other elements before the closing body tag -->   
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bookList = document.getElementById('book-list');
+    
+        bookList.addEventListener('click', function(event) {
+            if (event.target.classList.contains('finish-reading-btn')) {
+                const bookForm = event.target.closest('.book-form');
+                const bookId = bookForm.getAttribute('data-book-id');
+                const bookTitle = bookForm.previousElementSibling.textContent;
+    
+                // Update the form action to a "restore" endpoint
+                bookForm.setAttribute('action', `/book_finish_reading/${bookId}/`);
+    
+                // Make an AJAX request to update the server
+                $.ajax({
+                    url: `/book_finish_reading/${bookId}/`,
+                    type: 'POST',
+                    data: { 'finished_reading': true },
+                    success: function(response) {
+                        // Remove the book from the reading list
+                        bookForm.closest('li').remove();
+    
+                        // Create a new list item for the completed book
+                        const completedBookItem = document.createElement('li');
+                        completedBookItem.textContent = `${bookTitle} - Completed`;
+    
+                        // Append the completed book to the completed list
+                        const completedList = document.getElementById('completed-list');
+                        completedList.appendChild(completedBookItem);
+                    },
+                    error: function(error) {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

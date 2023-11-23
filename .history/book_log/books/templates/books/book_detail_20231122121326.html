@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }}</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>Book Details</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <h1>{{ book.title }}</h1>
+        <p>Author: {{ book.author }}</p>
+        <p>Genre: {{ book.genre }}</p>
+        <p>Publication Date: {{ book.publication_date }}</p>
+        <a href="{% url 'book_edit' pk=book.pk %}">Edit</a>
+        <a href="{% url 'book_list' %}">Back to list</a>
+        <!-- Add any additional content related to book details here -->
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>Book List</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <ul>
+            {% for book in books %}
+                <li>
+                    <a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a>
+                    <form method="post" action="{% url 'book_delete' pk=book.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit">Finished reading</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'book_new' %}">Add a new book</a>
+        <!-- Add any additional content related to the book list here -->
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+
+</body>
+</html>
