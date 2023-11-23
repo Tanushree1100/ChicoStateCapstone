@@ -1,12 +1,13 @@
-# books/urls.py
+# urls.py
 from django.urls import path
-from . import views
+from .views import book_list, book_detail, book_new, book_edit, book_delete, book_finish_reading, completed_books
 
 urlpatterns = [
-    path('', views.book_list, name='book_list'),
-    path('<int:pk>/', views.book_detail, name='book_detail'),
-    path('new/', views.book_new, name='book_new'),
-    path('<int:pk>/edit/', views.book_edit, name='book_edit'),
-    path('<int:pk>/delete/', views.book_delete, name='book_delete'),
-    path('book_restore/<int:pk>/', views.book_restore, name='book_restore'),
+    path('book_list/', book_list, name='book_list'),
+    path('book_detail/<int:pk>/', book_detail, name='book_detail'),
+    path('book_new/', book_new, name='book_new'),
+    path('book_edit/<int:pk>/', book_edit, name='book_edit'),
+    path('book_delete/<int:pk>/', book_delete, name='book_delete'),
+    path('book_finish_reading/<int:pk>/', book_finish_reading, name='book_finish_reading'),
+    path('completed_books/', completed_books, name='completed_books'),  # New URL pattern
 ]

@@ -28,4 +28,5 @@ urlpatterns = [
     path('login/', log_views.user_login),
     path('logout/', log_views.user_logout),
     path('books/', include('books.urls')),
+    path('', include('log.urls')),
 ]

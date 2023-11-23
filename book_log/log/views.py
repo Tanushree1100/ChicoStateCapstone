@@ -7,6 +7,8 @@ from log.forms import JoinForm, LoginForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 
+def landing_page(request):
+    return render(request, 'log/landing_page.html')
 
 def join(request):
     if (request.method == "POST"):
