@@ -13,12 +13,13 @@ class Book(models.Model):
         return self.title
 
 
-class Review(models.Model):
-    # Your fields for the Review model
-    content = models.TextField()
-    rating = models.IntegerField()
+# models.py
 
-    # Add any other fields as needed
+class Review(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reviews', null=True)  # Allow null
+    author = models.CharField(max_length=255, default='Anonymous')
+    rating = models.IntegerField()
+    content = models.TextField()
 
     def __str__(self):
-        return self.content  # Or whatever makes sense as a string representation
+        return f"{self.author}'s review for {self.book.title}"

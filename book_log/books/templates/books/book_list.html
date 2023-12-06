@@ -54,27 +54,31 @@
     </footer>
 
     <!-- Add any additional scripts or other elements before the closing body tag -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const bookList = document.getElementById('book-list');
-        
-            bookList.addEventListener('submit', function(event) {
-                event.preventDefault();
-        
-                const form = event.target;
-                const formData = new FormData(form);
-        
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData
-                })
+    <!-- templates/books/book_list.html -->
+
+
+    <!-- templates/books/book_list.html -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const bookList = document.getElementById('book-list');
+
+        bookList.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Hide the original list item from the Book List section
+                        // Toggle the 'hidden' class on the original list item from the Book List section
                         const listItem = form.closest('li');
                         if (listItem) {
-                            listItem.classList.add('hidden');
+                            listItem.classList.toggle('hidden');
                         } else {
                             console.error('Failed to find the book list item.');
                         }
@@ -88,8 +92,12 @@
                 .catch(error => {
                     console.error('Failed to mark the book as finished:', error);
                 });
-            });
         });
-    </script>
+    });
+</script>
+
+<!-- Rest of your HTML content -->
+
+
 </body>
 </html>

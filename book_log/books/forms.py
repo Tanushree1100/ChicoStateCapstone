@@ -12,4 +12,4 @@ class BookForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['content', 'rating']  # Adjust the fields based on your Review model
+        fields = ['author', 'rating']  # Remove 'content' from this list
