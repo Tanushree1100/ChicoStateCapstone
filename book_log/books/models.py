@@ -11,3 +11,14 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Review(models.Model):
+    # Your fields for the Review model
+    content = models.TextField()
+    rating = models.IntegerField()
+
+    # Add any other fields as needed
+
+    def __str__(self):
+        return self.content  # Or whatever makes sense as a string representation

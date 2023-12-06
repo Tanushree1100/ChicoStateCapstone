@@ -18,7 +18,11 @@
     <main>
         <ul id="completed-list">
             {% for completed_book in completed_books %}
-                <li>{{ completed_book.title }} - Completed</li>
+                <li>
+                    <a href="{% url 'book_detail' pk=completed_book.pk %}">
+                        {{ completed_book.title }} - Completed
+                    </a>
+                </li>
             {% endfor %}
         </ul>
         <a href="{% url 'book_list' %}">Back to Book List</a>

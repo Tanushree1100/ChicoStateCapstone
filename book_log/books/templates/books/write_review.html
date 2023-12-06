@@ -1,0 +1,44 @@
+<!-- templates/books/write_review.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Review</title>
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <h1>Write a Review</h1>
+    </header>
+
+    <main>
+        <h2>Book Details</h2>
+        <p>{{ book.title }}</p>
+        <p>{{ book.author }}</p>
+        <!-- Add more book details as needed -->
+
+        <h2>Write Your Review</h2>
+        <form action="{% url 'save_review' pk=book.pk %}" method="post">
+            {% csrf_token %}
+            <!-- Add form fields for the review, e.g., textarea for the review text -->
+            <label for="review_text">Review:</label><br>
+            <textarea id="review_text" name="review_text" rows="4" cols="50" required></textarea><br>
+
+            <!-- Add more form fields as needed -->
+
+            <button type="submit">Save Review</button>
+        </form>
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+
+</body>
+</html>
