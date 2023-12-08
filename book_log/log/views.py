@@ -6,7 +6,8 @@ from django.urls import reverse
 from log.forms import JoinForm, LoginForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
-
+import requests
+from .models import Book
 def landing_page(request):
     return render(request, 'log/landing_page.html')
 
@@ -65,3 +66,63 @@ def user_logout(request):
     logout(request)
     # Return to homepage.
     return redirect('/')
+
+def search_books(query):
+    base_url = 'https://www.googleapis.com/books/v1/volumes'
+    params = {'q': query, 'key': 'AIzaSyDlY3qJ1D4B4Ltd-QwLaNUwz0KpQKvm9QY'}  # Replace with your API key
+
+    response = requests.get(base_url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+        return data.get('items', [])
+    else:
+        print(f"Error: {response.status_code}")
+        return []
+
+# views.py
+
+# views.py
+
+def index(request):
+    if request.method == 'POST':
+        query = request.POST.get('search_query', '')
+        results = search_books(query)
+
+        # Save the search results in the database
+        for book_data in results:
+            title = book_data.get('volumeInfo', {}).get('title', 'Unknown Title')
+            authors = book_data.get('volumeInfo', {}).get('authors', ['Unknown Author'])
+            
+            # Debugging: Print book data to console
+            print(f"Title: {title}, Authors: {authors}")
+
+            Book.objects.create(title=title, authors=authors)
+
+        # Redirect to the search results page with both API and saved results
+        return redirect(reverse('search_results') + f'?query={query}')
+
+    # Display the saved results on the landing page
+    saved_results = Book.objects.all()
+    return render(request, 'log/landing_page.html', {'saved_results': saved_results, 'query': ''})
+
+
+
+def search_results(request):
+    query = request.GET.get('query', '')
+    results = search_books(query)
+
+    # Save the search results in the database
+    for book_data in results:
+        title = book_data.get('volumeInfo', {}).get('title', 'Unknown Title')
+        authors = book_data.get('volumeInfo', {}).get('authors', ['Unknown Author'])
+
+        # Debugging: Print book data to console
+        print(f"Title: {title}, Authors: {authors}")
+
+        Book.objects.create(title=title, authors=authors)
+
+    # Retrieve the saved results from the database
+    saved_results = Book.objects.all()
+
+    return render(request, 'log/search_results.html', {'results': saved_results, 'query': query})

@@ -6,15 +6,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
-    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+    <title>Book Search</title>
 </head>
 <body>
     {% include "navigation.html" %}
-    <header>
-        <!-- Add your header content here -->
-        <h1>Landing Page</h1>
-        <!-- You can include a navigation menu or any other header elements as needed -->
-    </header>    
+    <h1>Book Search</h1>
+
+    <form method="post" action="{% url 'index' %}">
+        {% csrf_token %}
+        <label for="search_query">Search for a book:</label>
+        <input type="text" id="search_query" name="search_query" required>
+        <button type="submit">Search</button>
+    </form>
+
+    
 </body>
 </html>

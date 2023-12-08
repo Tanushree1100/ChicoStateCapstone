@@ -22,6 +22,9 @@
         <p>Author: {{ book.author }}</p>
         <p>Genre: {{ book.genre }}</p>
         <p>Publication Date: {{ book.publication_date }}</p>
+        <!-- templates/books/book_detail.html -->
+        
+
         <a href="{% url 'book_edit' pk=book.pk %}">Edit</a>
         <a href="{% url 'book_list' %}">Back to list</a>
         <!-- Add any additional content related to book details here -->
