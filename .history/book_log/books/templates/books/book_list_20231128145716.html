@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <!-- Add jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>Book List</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <h2>Book List</h2>
+        <ul id="book-list">
+            {% for book in books %}
+                <li>
+                    <a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a>
+                    <form id="book-form-{{ book.pk }}" class="book-form" data-book-id="{{ book.pk }}" method="post" action="{% url 'book_finish_reading' pk=book.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="finish-reading-btn">Finished reading</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'book_new' %}">Add a new book</a>
+
+        <h2>Completed Books</h2>
+        <ul id="completed-books">
+            {% for completed_book in completed_books %}
+                <li>
+                    <a href="{% url 'book_detail' pk=completed_book.pk %}">{{ completed_book.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookList = document.getElementById('book-list');
+            const completedBooksList = document.getElementById('completed-books');
+
+            bookList.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const targetForm = event.target;
+                
+                if (targetForm.tagName === 'FORM' && targetForm.classList.contains('book-form')) {
+                    const bookId = targetForm.getAttribute('data-book-id');
+
+                    // Set a hidden input value to identify the finished book
+                    const finishedInput = document.createElement('input');
+                    finishedInput.type = 'hidden';
+                    finishedInput.name = 'finished_reading';
+                    finishedInput.value = 'true';
+
+                    // Append the hidden input to the form
+                    targetForm.appendChild(finishedInput);
+
+                    // Submit the form
+                    fetch(targetForm.action, {
+                        method: 'POST',
+                        body: new FormData(targetForm),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Move the completed book to the Completed Books section
+                            const listItem = targetForm.closest('li');
+                            completedBooksList.appendChild(listItem);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!-- templates/books/completed_books.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completed Books</title>
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <h1>Completed Books</h1>
+    </header>
+
+    <main>
+        <form method="get" action="{% url 'completed_books' %}">
+            <label for="search">Search Completed Books:</label>
+            <input type="text" id="search" name="search" value="{{ search_query }}">
+            <button type="submit">Search</button>
+        </form>
+
+        <ul id="completed-list">
+            {% for completed_book in completed_books %}
+                <li>
+                    <a href="{% url 'view_saved_review' pk=completed_book.pk %}" target="_blank">
+                        {{ completed_book.title }} - Completed
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'book_list' %}">Back to Book List</a>
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+</body>
+</html>

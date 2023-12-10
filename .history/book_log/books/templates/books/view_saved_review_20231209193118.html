@@ -1,0 +1,53 @@
+<!-- templates/books/view_saved_review.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Saved Review</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>View Saved Review</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <h2>{{ book.title }}</h2>
+        <p>Author: {{ review.author }}</p>
+        <p>Rating: {{ review.rating }}</p>
+        <p>Expectations Met: {{ review.expectations }}</p>
+        <p>Engaging Plot: {{ review.engaging_plot }}</p>
+        <p>Connection to Characters: {{ review.connection_characters }}</p>
+        <p>Enjoyed Writing: {{ review.enjoyed_writing }}</p>
+        <p>Confusing Elements: {{ review.confusing_elements }}</p>
+        <p>Themes Resonated: {{ review.themes_resonated }}</p>
+        <p>Unexpected Twists: {{ review.unexpected_twists }}</p>
+        <p>Lasting Impression: {{ review.lasting_impression }}</p>
+        <p>Recommendation: {{ review.recommendation }}</p>
+        <p>Influence on Thoughts: {{ review.influence_on_thoughts }}</p>
+
+        {% if review.review_text %}
+            <h2>Additional Comments</h2>
+            <p>{{ review.review_text }}</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+</body>
+
+</html>

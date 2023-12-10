@@ -1,0 +1,112 @@
+<!-- templates/books/write_review.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Review</title>
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <h1>Write a Review</h1>
+    </header>
+
+    <main>
+        <h2>Book Details</h2>
+        <p>{{ book.title }}</p>
+        <p>{{ book.author }}</p>
+        <!-- Add more book details as needed -->
+
+        <h2>Write Your Review</h2>
+        <form action="{% url 'save_review' pk=book.pk %}" method="post" id="reviewForm">
+            {% csrf_token %}
+            
+            <!-- Add yes or no questions as radio buttons -->
+            <label for="expectations">1. Did the book meet your expectations based on its description or genre?</label>
+            <input type="radio" id="expectations_yes" name="expectations" value="yes"> Yes
+            <input type="radio" id="expectations_no" name="expectations" value="no"> No<br>
+
+            <label for="engaging_plot">2. Did you find the plot engaging and well-paced?</label>
+            <input type="radio" id="engaging_plot_yes" name="engaging_plot" value="yes"> Yes
+            <input type="radio" id="engaging_plot_no" name="engaging_plot" value="no"> No<br>
+
+            <label for="connection_characters">3. Did you feel a strong connection to any of the characters in the book?</label>
+            <input type="radio" id="connection_characters_yes" name="connection_characters" value="yes"> Yes
+            <input type="radio" id="connection_characters_no" name="connection_characters" value="no"> No<br>
+
+            <label for="enjoyed_writing">4. Was there a particular aspect of the book's writing style that you enjoyed?</label>
+            <input type="radio" id="enjoyed_writing_yes" name="enjoyed_writing" value="yes"> Yes
+            <input type="radio" id="enjoyed_writing_no" name="enjoyed_writing" value="no"> No<br>
+
+            <label for="confusing_elements">5. Did you encounter any elements in the story that you found confusing or unenjoyable?</label>
+            <input type="radio" id="confusing_elements_yes" name="confusing_elements" value="yes"> Yes
+            <input type="radio" id="confusing_elements_no" name="confusing_elements" value="no"> No<br>
+
+            <label for="themes_resonated">6. Were there themes or messages in the book that resonated with you?</label>
+            <input type="radio" id="themes_resonated_yes" name="themes_resonated" value="yes"> Yes
+            <input type="radio" id="themes_resonated_no" name="themes_resonated" value="no"> No<br>
+
+            <label for="unexpected_twists">7. Did the book provide any unexpected twists or surprises?</label>
+            <input type="radio" id="unexpected_twists_yes" name="unexpected_twists" value="yes"> Yes
+            <input type="radio" id="unexpected_twists_no" name="unexpected_twists" value="no"> No<br>
+
+            <label for="lasting_impression">8. Did the book leave a lasting impression on you after finishing it?</label>
+            <input type="radio" id="lasting_impression_yes" name="lasting_impression" value="yes"> Yes
+            <input type="radio" id="lasting_impression_no" name="lasting_impression" value="no"> No<br>
+
+            <label for="recommendation">9. Would you recommend this book to others?</label>
+            <input type="radio" id="recommendation_yes" name="recommendation" value="yes"> Yes
+            <input type="radio" id="recommendation_no" name="recommendation" value="no"> No<br>
+
+            <label for="influence_on_thoughts">10. Did reading this book influence your thoughts or perspective on certain topics?</label>
+            <input type="radio" id="influence_on_thoughts_yes" name="influence_on_thoughts" value="yes"> Yes
+            <input type="radio" id="influence_on_thoughts_no" name="influence_on_thoughts" value="no"> No<br>
+
+            <!-- Add form field for the review text -->
+            <label for="review_text">Additional Comments:</label><br>
+            <textarea id="review_text" name="review_text" rows="4" cols="50"></textarea><br>
+
+            <!-- Add more form fields as needed -->
+            <a href="{% url 'book_list' %}" class="btn btn-primary">Back to Reading List</a>
+            <button type="submit" id="submitReviewBtn">Save Review</button>
+        </form>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const reviewForm = document.getElementById('reviewForm');
+            const submitReviewBtn = document.getElementById('submitReviewBtn');
+
+            // Client-side validation
+            submitReviewBtn.addEventListener('click', function (event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                }
+            });
+
+            function validateForm() {
+                // Add your validation logic here
+                // Example: Check if at least one radio button is selected for each question
+                const questions = ['expectations', 'engaging_plot', 'connection_characters', 'enjoyed_writing', 'confusing_elements', 'themes_resonated', 'unexpected_twists', 'lasting_impression', 'recommendation', 'influence_on_thoughts'];
+                
+                for (const question of questions) {
+                    const radioButtons = document.querySelectorAll(`input[name="${question}"]:checked`);
+                    if (radioButtons.length === 0) {
+                        alert(`Please answer question ${questions.indexOf(question) + 1}.`);
+                        return false;
+                    }
+                }
+
+                // Add more validation logic as needed
+
+                return true;
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!-- templates/books/write_review.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Review</title>
+</head>
+
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <h1>Write a Review</h1>
+    </header>
+
+    <main>
+        <h2>Book Details</h2>
+        <p>{{ book.title }}</p>
+        <p>{{ book.author }}</p>
+        <!-- Add more book details as needed -->
+
+        <h2>Write Your Review</h2>
+        <form action="{% url 'save_review' pk=book.pk %}" method="post" id="reviewForm">
+            {% csrf_token %}
+
+            <!-- Add yes or no questions as radio buttons -->
+            {% for field in form.visible_fields %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {% for choice in field %}
+                    {{ choice.tag }} {{ choice.choice_label|safe }}
+                {% endfor %}
+                <br>
+            {% endfor %}
+
+            <!-- Add form field for the review text -->
+            <label for="{{ form.review_text.id_for_label }}">Additional Comments:</label><br>
+            {{ form.review_text }}
+            <br>
+
+            <!-- Add more form fields as needed -->
+            <a href="{% url 'book_list' %}" class="btn btn-primary">Back to Reading List</a>
+            <button type="submit" id="submitReviewBtn">Save Review</button>
+        </form>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const reviewForm = document.getElementById('reviewForm');
+            const submitReviewBtn = document.getElementById('submitReviewBtn');
+
+            // Client-side validation
+            submitReviewBtn.addEventListener('click', function (event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                }
+            });
+
+            function validateForm() {
+                // Add your validation logic here
+                // Example: Check if at least one radio button is selected for each question
+                const radioGroups = ['expectations', 'engaging_plot', 'connection_characters', 'enjoyed_writing', 'confusing_elements', 'themes_resonated', 'unexpected_twists', 'lasting_impression', 'recommendation', 'influence_on_thoughts'];
+
+                for (const group of radioGroups) {
+                    const checkedRadio = document.querySelector(`input[name="${group}"]:checked`);
+                    if (!checkedRadio) {
+                        alert(`Please answer question ${radioGroups.indexOf(group) + 1}.`);
+                        return false;
+                    }
+                }
+
+                // Add more validation logic as needed
+
+                return true;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

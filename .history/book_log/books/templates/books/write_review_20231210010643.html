@@ -1,0 +1,86 @@
+<!-- templates/books/write_review.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Review</title>
+</head>
+
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <h1>Write a Review</h1>
+    </header>
+
+    <main>
+        <h2>Book Details</h2>
+        <p>{{ book.title }}</p>
+        <p>{{ book.author }}</p>
+        <!-- Add more book details as needed -->
+
+        <h2>Write Your Review</h2>
+        <form action="{% url 'save_review' pk=book.pk %}" method="post" id="reviewForm">
+            {% csrf_token %}
+
+            <!-- Add text input fields for questions -->
+            {% for field in form.visible_fields %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" placeholder="Enter your response" value="{{ field.value }}">
+                {% if field.errors %}
+                    <div class="error">{{ field.errors|striptags }}</div>
+                {% endif %}
+                <br>
+            {% endfor %}
+
+            <!-- Add form field for the review text -->
+            <label for="{{ form.review_text.id_for_label }}">Additional Comments:</label><br>
+            <textarea name="{{ form.review_text.name }}" id="{{ form.review_text.id_for_label }}" placeholder="Enter your comments">{{ form.review_text.value }}</textarea>
+            {% if form.review_text.errors %}
+                <div class="error">{{ form.review_text.errors|striptags }}</div>
+            {% endif %}
+            <br>
+
+            <!-- Add more form fields as needed -->
+            <a href="{% url 'book_list' %}" class="btn btn-primary">Back to Reading List</a>
+            <button type="submit" id="submitReviewBtn">Save Review</button>
+        </form>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const reviewForm = document.getElementById('reviewForm');
+            const submitReviewBtn = document.getElementById('submitReviewBtn');
+
+            // Client-side validation
+            submitReviewBtn.addEventListener('click', function (event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                }
+            });
+
+            function validateForm() {
+                // Add your validation logic here
+                // Example: Check if text input fields are not empty
+                const textInputs = document.querySelectorAll('input[type="text"]');
+                for (const input of textInputs) {
+                    if (!input.value.trim()) {
+                        alert(`Please answer all questions.`);
+                        return false;
+                    }
+                }
+
+                // Add more validation logic as needed
+
+                return true;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

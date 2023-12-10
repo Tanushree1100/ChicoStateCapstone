@@ -1,0 +1,30 @@
+<!-- templates/books/book_detail.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>{{ book.title }}</h1>
+  
+  <div>
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>Genre:</strong> {{ book.genre }}</p>
+    <p><strong>Description:</strong> {{ book.description }}</p>
+    <!-- Add other book details as needed -->
+  </div>
+
+  <h2>Reviews</h2>
+  <ul>
+    {% for review in reviews %}
+      <li>
+        <p><strong>Author:</strong> {{ review.author }}</p>
+        <p><strong>Rating:</strong> {{ review.rating }}</p>
+        <p><strong>Review:</strong> {{ review.body }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <!-- Add a form to submit new reviews if needed -->
+
+  <a href="{% url 'write_review' pk=book.pk %}">Write a Review</a>
+
+  <!-- Other book details and actions -->
+{% endblock %}

@@ -1,0 +1,97 @@
+<!-- templates/books/book_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <!-- Add jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+    <style>
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>Book List</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <h2>Book List</h2>
+        <ul id="book-list">
+            {% for book in books %}
+                <li class="{% if book.finished_reading %}hidden{% endif %}">
+                    <form action="{% url 'book_finish_reading' pk=book.pk %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="finished_reading" value="true">
+                        <a href="{% url 'write_review' pk=book.pk %}" class="{% if book.pk in completed_books_ids %}completed{% endif %}">
+                            {{ book.title }}
+                        </a>
+                        {% if not book.finished_reading %}
+                            <button type="submit" class="finish-reading-btn">Finished reading</button>
+                        {% endif %}
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'book_new' %}">Add a new book</a>
+
+        <!-- Add any additional content related to the book list here -->
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+    <!-- templates/books/book_list.html -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const bookList = document.getElementById('book-list');
+
+        bookList.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Toggle the 'hidden' class on the original list item from the Book List section
+                        const listItem = form.closest('li');
+                        if (listItem) {
+                            listItem.classList.toggle('hidden');
+                        } else {
+                            console.error('Failed to find the book list item.');
+                        }
+
+                        // Redirect to the write review page
+                        window.location.href = form.querySelector('a').getAttribute('href');
+                    } else {
+                        console.error('Failed to mark the book as finished.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Failed to mark the book as finished:', error);
+                });
+        });
+    });
+</script>
+
+</body>
+</html>

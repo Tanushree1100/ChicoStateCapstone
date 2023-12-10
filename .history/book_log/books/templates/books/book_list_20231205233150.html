@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <!-- Add jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>Book List</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <h2>Book List</h2>
+        <ul id="book-list">
+            {% for book in books %}
+                <li>
+                    <form action="{% url 'book_finish_reading' pk=book.pk %}" method="post">
+                        {% csrf_token %}
+                        <a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a>
+                        <button type="submit" class="finish-reading-btn">Finished reading</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'book_new' %}">Add a new book</a>
+
+        <!-- Add any additional content related to the book list here -->
+        
+        <!-- New section for Completed Books -->
+        <h2 id="completed-books-heading">Completed Books</h2>
+        <ul id="completed-books">
+            <!-- Completed books will be dynamically added here using JavaScript -->
+        </ul>
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookList = document.getElementById('book-list');
+            const completedBooksList = document.getElementById('completed-books');
+
+            bookList.addEventListener('submit', function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Check if the submitted form contains the 'finish-reading-btn' class
+                if (event.target.classList.contains('finish-reading-btn')) {
+                    // Access the book ID from the form action attribute
+                    const bookId = event.target.closest('form').getAttribute('action').split('/').pop();
+
+                    // Submit the form to the server
+                    event.target.closest('form').submit();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

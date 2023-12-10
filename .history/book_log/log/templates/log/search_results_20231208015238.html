@@ -1,0 +1,33 @@
+<!-- search_results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    {% include "navigation.html" %}
+    <h1>Search Results</h1>
+
+    {% if results %}
+        <ul>
+            {% for book in results %}
+                <li>
+                    {{ book.title }} by
+                    {% if book.authors %}
+                        {{ book.authors }}
+                    {% else %}
+                        Unknown Author
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>

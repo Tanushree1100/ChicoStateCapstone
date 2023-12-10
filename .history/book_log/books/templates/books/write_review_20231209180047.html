@@ -1,0 +1,76 @@
+<!-- templates/books/write_review.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Review</title>
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <h1>Write a Review</h1>
+    </header>
+
+    <main>
+        <h2>Book Details</h2>
+        <p>{{ book.title }}</p>
+        <p>{{ book.author }}</p>
+        <!-- Add more book details as needed -->
+
+        <h2>Write Your Review</h2>
+        <form action="{% url 'save_review' pk=book.pk %}" method="post" id="reviewForm">
+            {% csrf_token %}
+
+            <!-- Add yes or no questions -->
+            <label for="expectations">1. Did the book meet your expectations based on its description or genre?</label>
+            <input type="checkbox" id="expectations" name="expectations" value="yes"> Yes
+            <input type="checkbox" id="expectations" name="expectations" value="no"> No<br>
+
+            <!-- Add more questions as needed -->
+
+            <!-- Add form field for the review text -->
+            <label for="review_text">Additional Comments:</label><br>
+            <textarea id="review_text" name="review_text" rows="4" cols="50"></textarea><br>
+
+            <!-- Add more form fields as needed -->
+            <a href="{% url 'book_list' %}" class="btn btn-primary">Back to Reading List</a>
+            <button type="submit" id="submitReviewBtn">Save Review</button>
+        </form>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const reviewForm = document.getElementById('reviewForm');
+            const submitReviewBtn = document.getElementById('submitReviewBtn');
+
+            // Client-side validation
+            submitReviewBtn.addEventListener('click', function (event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                }
+            });
+
+            function validateForm() {
+                // Add your validation logic here
+                // Example: Check if at least one checkbox is selected
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+
+                if (checkedCheckboxes.length === 0) {
+                    alert('Please answer at least one question.');
+                    return false;
+                }
+
+                // Add more validation logic as needed
+
+                return true;
+            }
+        });
+    </script>
+
+</body>
+</html>

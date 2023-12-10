@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <!-- Add jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>Book List</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <h2>Book List</h2>
+        <ul id="book-list">
+            {% for book in books %}
+                <li>
+                    <form action="{% url 'book_finish_reading' pk=book.pk %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="finished_reading" value="true">
+                        <a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a>
+                        <button type="submit" class="finish-reading-btn">Finished reading</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'book_new' %}">Add a new book</a>
+
+        <!-- Add any additional content related to the book list here -->
+        
+        <!-- New section for Completed Books -->
+        <h2 id="completed-books-heading">Completed Books</h2>
+        <ul id="completed-books">
+            <!-- Completed books will be dynamically added here using JavaScript -->
+        </ul>
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+<!-- Add any additional scripts or other elements before the closing body tag -->
+
+<script>
+<!-- Inside your script tag -->
+document.addEventListener('DOMContentLoaded', function() {
+    const bookList = document.getElementById('book-list');
+    const completedBooksList = document.getElementById('completed-books');
+
+    bookList.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Move the completed book title to the Completed Books section
+                const listItem = form.closest('li');
+                const bookTitle = listItem.querySelector('a');
+                
+                if (bookTitle) {
+                    // Clone the book title and its parent
+                    const clonedBookTitle = bookTitle.cloneNode(true);
+                    const clonedListItem = listItem.cloneNode(true);
+
+                    // Append the cloned elements to the Completed Books section
+                    completedBooksList.appendChild(clonedListItem);
+
+                    // Remove the button from the moved form
+                    form.querySelector('.finish-reading-btn').remove();
+
+                    // Hide the original form in the Book List section
+                    listItem.style.display = 'none';
+                } else {
+                    console.error('Failed to find the book title element.');
+                }
+            } else {
+                console.error('Failed to mark the book as finished.');
+            }
+        })
+        .catch(error => {
+            console.error('Failed to mark the book as finished:', error);
+        });
+    });
+});
+
+
+</script>
+</body>
+</html>

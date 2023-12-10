@@ -1,0 +1,62 @@
+<!-- templates/books/view_saved_review.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Saved Review</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>View Saved Review</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <h2>{{ book.title }}</h2>
+        <p>Author: {{ book.author }}</p>
+        <p>Genres:
+            {% for genre in book.genres.all %}
+                {{ genre.name }}
+                {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        <!-- Add more book details as needed -->
+
+        {% if review %}
+            <h2>Review Details</h2>
+            <p>Author: {{ review.author }}</p>
+            <p>Rating: {{ review.rating }}</p>
+            <p>Content: {{ review.content }}</p>
+            <!-- Add more review details as needed -->
+        {% else %}
+            <!-- Display the form for adding a new review -->
+            <h2>Write a Review</h2>
+            <form action="{% url 'save_review' pk=book.pk %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save Review</button>
+            </form>
+        {% endif %}
+
+        <!-- Add any additional content related to viewing saved reviews here -->
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+</body>
+
+</html>

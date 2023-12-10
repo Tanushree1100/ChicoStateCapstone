@@ -1,4 +1,4 @@
-#!/Users/tanushreetrivedi/Desktop/ChicoStateCapstone/django-env/bin/python
+#!/Users/tanushreetrivedi/Desktop/ChicoStateCapstone/django-env/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys

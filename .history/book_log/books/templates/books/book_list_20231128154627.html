@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <!-- Add jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>Book List</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <h2>Book List</h2>
+        <ul id="book-list">
+            {% for book in books %}
+                <li>
+                    <a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a>
+                    <button class="finish-reading-btn" data-book-id="{{ book.pk }}">Finished reading</button>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'book_new' %}">Add a new book</a>
+
+        <!-- Add any additional content related to the book list here -->
+        
+        <!-- New section for Completed Books -->
+        <h2 id="completed-books-heading">Completed Books</h2>
+        <ul id="completed-books">
+            <!-- Completed books will be dynamically added here using JavaScript -->
+        </ul>
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookList = document.getElementById('book-list');
+            const completedBooksList = document.getElementById('completed-books');
+
+            bookList.addEventListener('click', function(event) {
+                if (event.target.tagName === 'BUTTON' && event.target.classList.contains('finish-reading-btn')) {
+                    const bookId = event.target.getAttribute('data-book-id');
+
+                    // Send an AJAX request to mark the book as finished
+                    $.ajax({
+                        type: 'POST',
+                        url: '{% url "book_finish_reading" pk=bookId %}', // Update this line
+                        data: {
+                            'book_id': bookId,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                // Move the completed book title to the Completed Books section
+                                const listItem = event.target.closest('li');
+                                const bookTitle = listItem.querySelector('a');
+                                completedBooksList.appendChild(bookTitle.parentNode);
+
+                                // Remove the button from the moved form
+                                const movedForm = completedBooksList.querySelector(`#book-form-${bookId}`);
+                                if (movedForm) {
+                                    const button = movedForm.querySelector('.finish-reading-btn');
+                                    if (button) {
+                                        button.remove();
+                                    }
+                                }
+
+                                // Hide the form in the Book List section
+                                event.target.style.display = 'none';
+                            } else {
+                                console.error('Failed to mark the book as finished.');
+                            }
+                        },
+                        error: function() {
+                            console.error('Failed to mark the book as finished.');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

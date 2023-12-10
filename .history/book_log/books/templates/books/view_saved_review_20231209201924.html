@@ -1,0 +1,54 @@
+<!-- templates/books/view_saved_review.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Saved Review</title>
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+</head>
+
+<body>
+    {% include "navigation.html" %}
+    <header>
+        <!-- Add your header content here -->
+        <h1>View Saved Review</h1>
+        <!-- You can include a navigation menu or any other header elements as needed -->
+    </header>
+
+    <main>
+        <h2>{{ book.title }}</h2>
+        <p>Author: {{ review.author }}</p>
+        <p>Rating: {{ review.rating }}</p>
+        <p>Expectations Met: {% if review.expectations %}Yes{% else %}No{% endif %}</p>
+        <p>Engaging Plot: {% if review.engaging_plot %}Yes{% else %}No{% endif %}</p>
+        <p>Connection to Characters: {% if review.connection_characters %}Yes{% else %}No{% endif %}</p>
+        <p>Enjoyed Writing: {% if review.enjoyed_writing %}Yes{% else %}No{% endif %}</p>
+        <p>Confusing Elements: {% if review.confusing_elements %}Yes{% else %}No{% endif %}</p>
+        <p>Themes Resonated: {% if review.themes_resonated %}Yes{% else %}No{% endif %}</p>
+        <p>Unexpected Twists: {% if review.unexpected_twists %}Yes{% else %}No{% endif %}</p>
+        <p>Lasting Impression: {% if review.lasting_impression %}Yes{% else %}No{% endif %}</p>
+        <p>Recommendation: {% if review.recommendation %}Yes{% else %}No{% endif %}</p>
+        <p>Influence on Thoughts: {% if review.influence_on_thoughts %}Yes{% else %}No{% endif %}</p>
+        <p>Debug - Expectations: {{ review.expectations }}</p>
+        <p>Debug - Engaging Plot: {{ review.engaging_plot }}</p>
+        {% if review.review_text %}
+            <h2>Additional Comments</h2>
+            <p>{{ review.review_text }}</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <!-- You can include copyright information, links, or any other footer elements as needed -->
+    </footer>
+
+    <!-- Add any additional scripts or other elements before the closing body tag -->
+</body>
+
+</html>
