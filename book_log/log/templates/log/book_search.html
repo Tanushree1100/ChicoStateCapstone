@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Search</title>
+</head>
+<body>
+    {% include "navigation.html" %}
+    <h1>Book Search</h1>
+    <form method="get">
+        <label for="search">Search for books:</label>
+        <input type="text" name="q" id="search" value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if books %}
+        <ul>
+            {% for book in books %}
+                <li>
+                    <strong>{{ book.title }}</strong> by {{ book.author }}<br>
+                    Published: {{ book.published_date }}<br>
+                    <img src="{{ book.thumbnail_url }}" alt="Book Cover"><br>
+                    <a href="{{ book.info_link }}" target="_blank">More Info</a><br>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>
