@@ -100,16 +100,19 @@ def book_finish_reading(request, pk):
             return JsonResponse({'success': True})
 
     return JsonResponse({'success': False})
+def write_review(request, pk):
+    # Retrieve the book object based on the primary key (pk)
+    book = get_object_or_404(Book, pk=pk)
 
-def write_review(request, book_id):
-    # Assuming you have a Book model and you fetch the book using its ID
-    book = Book.objects.get(pk=book_id)
-
-    # Fetch or create a review instance
-    review, created = Review.objects.get_or_create(book=book, author='Anonymous', defaults={'rating': 'None'})
-
-    # Initialize the form with the review instance
-    form = ReviewForm(instance=review)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.book = book
+            review.save()
+            return redirect('view_saved_review', pk=book.pk)
+    else:
+        form = ReviewForm()
 
     return render(request, 'books/write_review.html', {'book': book, 'form': form})
 

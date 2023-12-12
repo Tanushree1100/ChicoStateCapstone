@@ -24,17 +24,16 @@ class Review(models.Model):
     rating = models.IntegerField()
     content = models.TextField()
 
-    # New fields for each question in the review form
-    expectations = models.BooleanField(default=False)
-    engaging_plot = models.BooleanField(default=False)
-    connection_characters = models.BooleanField(default=False)
-    enjoyed_writing = models.BooleanField(default=False)
-    confusing_elements = models.BooleanField(default=False)
-    themes_resonated = models.BooleanField(default=False)
-    unexpected_twists = models.BooleanField(default=False)
-    lasting_impression = models.BooleanField(default=False)
-    recommendation = models.BooleanField(default=False)
-    influence_on_thoughts = models.BooleanField(default=False)
+    expectations = models.CharField(max_length=255, default='')
+    engaging_plot = models.CharField(max_length=255, default='')
+    connection_characters = models.CharField(max_length=255, default='')
+    enjoyed_writing = models.CharField(max_length=255, default='')
+    confusing_elements = models.CharField(max_length=255, default='')
+    themes_resonated = models.CharField(max_length=255, default='')
+    unexpected_twists = models.CharField(max_length=255, default='')
+    lasting_impression = models.CharField(max_length=255, default='')
+    recommendation = models.CharField(max_length=255, default='')
+    influence_on_thoughts = models.CharField(max_length=255, default='')
     review_text = models.TextField(blank=True, null=True)
 
     def __str__(self):
