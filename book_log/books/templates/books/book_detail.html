@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% include "bootstrap.html" %}
     {% load static %}
@@ -7,8 +8,87 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ book.title }}</title>
+    <style>
+        body {
+            background-color: #4158D0;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            color: #ffffff !important; /* Set text color to white */
+            font-family: "Lato", sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            padding-top: 60px; /* Add padding to the top to accommodate the fixed navbar */
+        }
+
+        h1 {
+            font-size: 600%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px; /* Added margin to separate from the button */
+        }
+
+        a {
+            text-decoration: none;
+            margin-top: 0 px; /* Added margin to separate from the button */
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #262725;
+            padding: 15px 0;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+        }
+
+        .footer {
+            width: 100%;
+            background-color: #30302f;
+            padding: 15px 0;
+            text-align: center; /* Center text */
+            position: fixed;
+            bottom: 0;
+        }
+
+        .button-pink {
+            /* Common style for pink buttons */
+            text-transform: uppercase;
+            background: #ff69b4; /* Pink color */
+            border: 0;
+            padding: 10px;
+            font-size: 12px;
+            text-decoration: none; /* Remove underline */
+            -webkit-transition: background 0.3s ease;
+            transition: background 0.3s ease;
+            border-radius: 5px;
+            margin-top: 15px;
+            color: #FFFFFF; /* Set text color to white */
+        }
+
+        .button-pink:hover,
+        .button-pink:active,
+        .button-pink:focus {
+            background: #ff69b4; /* Hover color */
+        }
+
+        main {
+            background: rgba(255, 105, 180, 0.2); /* Translucent pink background */
+            box-shadow: 0 0 20px rgba(244, 208, 226, 0.5); /* Translucent pink box shadow */
+            border-radius: 15px; /* Round out box edges */
+            padding: 100px; /* Add padding inside the box */
+            margin-top: 20px;
+        }
+    </style>
     <!-- Add any additional meta tags, stylesheets, or scripts here -->
 </head>
+
 <body>
     {% include "navigation.html" %}
     <header>
@@ -17,21 +97,20 @@
         <!-- You can include a navigation menu or any other header elements as needed -->
     </header>
 
-<!-- templates/books/book_detail.html -->
+    <!-- templates/books/book_detail.html -->
 
-<main>
-    <h1>{{ book.title }}</h1>
-    <p>Author: {{ book.author }}</p>
-    <p>Genres: {% for genre in book.genres.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-    <p>Publication Date: {{ book.publication_date }}</p>
-    <!-- Add any additional content related to book details here -->
+    <main>
+        <h1>{{ book.title }}</h1>
+        <p>Author: {{ book.author }}</p>
+        <p>Genres: {% for genre in book.genres.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+        <p>Publication Date: {{ book.publication_date }}</p>
+        <!-- Add any additional content related to book details here -->
 
-    <a href="{% url 'book_edit' pk=book.pk %}">Edit</a>
-    <a href="{% url 'book_list' %}">Back to list</a>
-</main>
+        <a href="{% url 'book_edit' pk=book.pk %}" class="button-pink">Edit</a>
+        <a href="{% url 'book_list' %}" class="button-pink">Back to list</a>
+    </main>
 
-
-    <footer>
+    <footer class="footer">
         <!-- Add your footer content here -->
         <!-- You can include copyright information, links, or any other footer elements as needed -->
     </footer>
@@ -39,4 +118,5 @@
     <!-- Add any additional scripts or other elements before the closing body tag -->
 
 </body>
+
 </html>

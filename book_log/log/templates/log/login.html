@@ -1,23 +1,142 @@
-<html>
-  <head>
-    {% include "bootstrap.html" %}
-    {% load static %}
-  </head>
-  <body>
-    {% include "navigation.html" %}
-    <div class="container">
-      <div class = "jumbotron">
-        <h1>Login</h1>
-        <form action="/login/" method="POST">{% csrf_token %}
-          <table>
-            {{ login_form.as_table }}
-            <tr><td>
-              <input type="submit" class="btn btn-primary" value = "Login"/>
-            </td></tr>
-            <tr><td>Click <a href="/join">here</a> to join.</td></tr>
-          </table>
-        </form>
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "bootstrap.html" %}
+  {% load static %}
+  <style>
+    body {
+      background-color: #4158D0;
+      background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+      color: #000000;
+      font-family: "Lato", sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .navbar {
+      width: 100%;
+      background-color: #262725;
+      padding: 15px 0;
+      box-sizing: border-box;
+      position: fixed;
+      top: 0;
+    }
+
+    .login {
+      width: 60%;
+      text-align: center;
+    }
+
+    .form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 50px;
+      height: 400px; /* Adjust the height as needed */
+    }
+
+    .form {
+      background: #fff;
+      width: 60%;
+      padding: 45px;
+      text-align: center;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(245, 242, 242, 0.24);
+      border-radius: 15px; /* Added border-radius for rounded edges */
+    }
+
+    .form input {
+      font-family: "Lato", sans-serif;
+      outline: 0;
+      background: #f2f2f2;
+      width: 100%;
+      border: 1px solid #ccc;
+      margin: 0 0 15px;
+      padding: 15px;
+      box-sizing: border-box;
+      font-size: 14px;
+      color: #000000 !important;
+    } 
+
+    .form button {
+      font-family: "Lato", sans-serif;
+      text-transform: uppercase;
+      outline: 0;
+      background: #ff69b4; /* Updated to the desired color */
+      width: 100%;
+      border: 0;
+      padding: 15px;
+      color: #FFFFFF;
+      font-size: 14px;
+      -webkit-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border-radius: 5px; /* Added border-radius for rounded edges */
+    }
+
+    .form button:hover, .form button:active, .form button:focus {
+      background: #ff69b4;
+    }
+
+    .form .registration-form {
+      display: none;
+    }
+
+    h1 {
+      color: #FFFFFF;
+      font-size: 600%;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      animation: blink 4s infinite;
+    }
+
+    @keyframes blink {
+      0%,25%,50%,75%,100% {
+        opacity: 1;
+      }
+      25%, 75% {
+        opacity: 0.5;
+      }
+    }
+
+    a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      width: 100%;
+      background-color: #30302f;
+      padding: 15px 0;
+      color: #FFFFFF;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  {% include "navigation.html" %}
+  <div class="login">
+    <h1>Litlist: Beyond the Cover</h1>
+    <div class="form-container">
+      <form action="/login/" method="POST" class="form">
+        {% csrf_token %}
+        {{ login_form.as_p }}
+        <button type="submit">Login</button>
+      </form>
     </div>
-  </body>
+    <p style="margin-top: 15px;">Don't have an account? <a href="log/join">Sign up here</a></p>
+  </div>
+  <div class="footer">
+    &copy; 2023 Litlist: Beyond the Cover. All rights reserved.
+  </div>
+</body>
 </html>

@@ -1,11 +1,64 @@
 <!-- navigation.html -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'landing_page' %}">Book Logger</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy0geD0pPYwrXz3peMQu8N0r5MDRV+Z"
+        crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #4158D0;
+            color: #000000;
+            font-family: "Lato", sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            background-color: #FFFFFF !important; /* White background */
+            border-left: 15px solid #ffffff; /* Pink border at the bottom */
+            border-right: 15px solid #ffffff;
+        }
+
+        .navbar-light .navbar-brand,
+        .navbar-light .navbar-nav .nav-link {
+            color: #ff69b4 !important;
+            font-size: 20px; /* Adjust the font size as needed */
+            padding-right: 10px; /* Adjust the padding as needed */
+        }
+
+        /* Increase the font size and weight for the LitList brand */
+        .navbar-light .navbar-brand {
+            font-size: 28px; /* Adjust the font size as needed */
+            font-weight: bold; /* Bold text */
+            margin-right: 10px; /* Add some margin to the right */
+        }
+
+        /* Style for the pink button */
+        .btn-pink {
+            background-color: #ff69b4; /* Pink color */
+            color: #fff; /* Text color *
+            width: 150px; /* Adjust the width as needed */
+        }
+     
+    </style>
+    <title>LitList</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'landing_page' %}">LitList</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto"> <!-- Use ml-auto to move the Login button to the right -->
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'book_list' %}">Reading List</a>
@@ -13,10 +66,26 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'completed_books' %}">Completed Books</a>
                 </li>
-                <a class="nav-link" href="/logout">Logout {{ user.username }}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout {{ user.username }}</a>
+                </li>
             {% else %}
-                <a class="nav-link" href="/login">Login</a>
+                <li class="nav-item">
+                    <a class="btn btn-pink btn-block" href="/login">Login</a>
+                </li>
             {% endif %}
         </ul>
     </div>
 </nav>
+
+<!-- Your other content goes here -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js" integrity="sha384-Lz9j4Aq5nx5ZCWBwx5FOnW1Pcu2M2pD5Wysf8+4J5tr5CJmX9ud1WfbtD4LoLqp4"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy0geD0pPYwrXz3peMQu8N0r5MDRV+Z"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

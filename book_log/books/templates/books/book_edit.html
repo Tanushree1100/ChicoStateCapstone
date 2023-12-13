@@ -8,6 +8,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Book</title>
     <!-- Add any additional meta tags, stylesheets, or scripts here -->
+
+    <style>
+        body {
+            background-color: #4158D0;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            color: #000000;
+            font-family: "Lato", sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+    
+        h1 {
+            color: #ffffff; /* White color */
+            font-size: 3em; /* Adjust font size */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+    
+        .navbar {
+            width: 100%;
+            background-color: #ff69b4; /* Pink color */
+            padding: 15px 0;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+        }
+    
+        main {
+            width: 80%; /* Set the width of the main content */
+            margin-top: 50px; /* Increase top margin */
+            background: rgba(255, 255, 255, 0.8); /* Translucent white background */
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.1); /* Light pink box shadow */
+            border-radius: 15px; /* Round out container edges */
+            padding: 20px; /* Add padding inside the main content */
+            margin: 0 auto; /* Center the main content on the page */
+        }
+    
+        form {
+            width: 100%;
+            max-width: 600px; /* Set the maximum width of the form */
+            margin: 0 auto; /* Center the form within the main content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+    
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    
+        /* Style checkboxes */
+        input[type="checkbox"] {
+            width: auto;
+            margin-bottom: 5px;
+        }
+    
+        button {
+            background-color: #ff69b4; /* Pink color */
+            color: #fff; /* White color */
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+    
+        button:hover,
+        button:active,
+        button:focus {
+            background-color: #ff1493; /* Darker pink color on hover */
+        }
+    
+        a.button {
+            display: inline-block;
+            background-color: #ff69b4; /* Pink color */
+            color: #fff; /* White color */
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+    
+        a.button:hover,
+        a.button:active,
+        a.button:focus {
+            background-color: #ff1493; /* Darker pink color on hover */
+        }
+    
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+    
+        .messages li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    
+        .error {
+            background-color: #ffcccc;
+            border: 1px solid #ff6666;
+            color: #ff0000;
+        }
+    
+        .success {
+            background-color: #ccffcc;
+            border: 1px solid #66ff66;
+            color: #008000;
+        }
+    </style>
+    
 </head>
 <body>
     {% include "navigation.html" %}
@@ -23,17 +155,17 @@
             {{ form.as_p }}
             <button type="submit">{% if form.instance.pk %}Update{% else %}Add{% endif %} Book</button>
         </form>
-        <a href="{% url 'book_list' %}">Back to list</a>
+        <a href="{% url 'book_list' %}" class="button">Back to List</a>
         <!-- Add any additional content related to book editing here -->
-        <!-- books/templates/books/book_edit.html -->
+        
         {% if messages_on_page %}
         <ul class="messages">
             {% for message in messages_on_page %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                <li class="{{ message.tags }}">{{ message }}</li>
             {% endfor %}
         </ul>
         {% endif %}
-
+        
         <!-- Your existing form rendering code goes here -->
     </main>
 

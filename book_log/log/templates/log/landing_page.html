@@ -7,15 +7,108 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Search</title>
+    <style>
+        body {
+            background-color: #4158D0;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            color: #000000;
+            font-family: "Lato", sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #262725;
+            padding: 15px 0;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+        }
+
+        h1 {
+            color: #FFFFFF;
+            font-size: 600%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: blink 4s infinite;
+            margin-bottom: 20px; /* Added margin to separate from the button */
+        }
+
+        @keyframes blink {
+            0%,25%,50%,75%,100% {
+                opacity: 1;
+            }
+            25%, 75% {
+                opacity: 0.5;
+            }
+        }
+
+        button {
+            font-family: "Lato", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background: #ff69b4; /* Updated to the desired color */
+            width: 200%; /* Adjusted width to 60% */
+            border: 0;
+            padding: 10px; /* Adjusted padding for a smaller size */
+            color: #FFFFFF;
+            font-size: 12px; /* Adjusted font size for a smaller size */
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 5px; /* Added border-radius for rounded edges */
+            margin-top: 10px; /* Added margin to separate from the heading */
+        }
+
+        button:hover, button:active, button:focus {
+            background: #ff69b4;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-top: 15px; /* Added margin to separate from the button */
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            width: 100%;
+            background-color: #30302f;
+            padding: 15px 0;
+            color: #FFFFFF;
+            text-align: center; /* Center text */
+            position: fixed;
+            bottom: 0;
+        }
+
+        .button-container {
+            text-align: right; /* Align the button to the center */
+            width: 60%; /* Make sure it spans the full width */
+            padding: 0 20px; /* Adjust padding as needed */
+        }
+    </style>
 </head>
 <body>
     {% include "navigation.html" %}
-    <h1>Landing Page</h1>
+    <h1>Litlist: Beyond the Cover</h1>
 
     <!-- Button to go to book_search.html -->
-    <a href="{% url 'book_search' %}">
-        <button>Go to Book Search</button>
-    </a>
+    <div class="button-container">
+        <a href="{% url 'book_search' %}">
+            <button>Go to Book Search</button>
+        </a>
+    </div>
 
+    <div class="footer">
+        &copy; 2023 Litlist: Beyond the Cover. All rights reserved.
+    </div>
 </body>
 </html>

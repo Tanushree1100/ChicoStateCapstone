@@ -1,5 +1,3 @@
-<!-- templates/books/book_list.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,8 +12,121 @@
     <title>Book List</title>
     <!-- Add any additional meta tags, stylesheets, or scripts here -->
     <style>
+        body {
+            background-color: #4158D0;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            color: #000000;
+            font-family: "Lato", sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #ffffff; /* Pink color */
+            font-size: 3em; /* Adjust font size */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #ff69b4; /* Pink color */
+            padding: 15px 0;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+        }
+
         .hidden {
             display: none;
+        }
+
+        header {
+            /* Add any additional styling for the header here */
+        }
+
+        main {
+            /* Add any additional styling for the main content here */
+        }
+
+        footer {
+            /* Add any additional styling for the footer here */
+            width: 100%;
+            background-color: #30302f; /* White background */
+            padding: 15px 0;
+            color: #ffffff; /* Pink color */
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+        }
+
+        .table-container {
+            width: 100%; /* Set the width of the container */
+            margin-top: 50px; /* Increase top margin */
+            background: rgba(255, 255, 255, 0.5); /* Translucent white background */
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.1); /* Light pink box shadow */
+            border-radius: 15px; /* Round out container edges */
+            padding: 20px; /* Add padding inside the container */
+            margin: 0 auto; /* Center the container on the page */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 40px; /* Increase cell padding */
+            text-align: left;
+        }
+
+        th {
+            
+            color: #ff69b4;
+        }
+
+        .finish-reading-btn,
+        .pink-button {
+            font-family: "Lato", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background: #ff69b4; /* Pink color */
+            border: 0;
+            padding: 8px; /* Adjust button padding */
+            color: #FFFFFF;
+            font-size: 1em; /* Adjust font size */
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-left: 10px;
+            display: inline-block; /* Ensure it takes only the necessary width */
+            margin-bottom: 15px; /* Add margin at the bottom */
+        }
+
+        .finish-reading-btn:hover,
+        .finish-reading-btn:active,
+        .finish-reading-btn:focus,
+        .pink-button:hover,
+        .pink-button:active,
+        .pink-button:focus {
+            background: #ff69b4; /* Hover color */
+        }
+
+        a {
+            color: #ff69b4;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -23,38 +134,46 @@
 <body>
     {% include "navigation.html" %}
     <header>
-        <!-- Add your header content here -->
-        <h1>Book List</h1>
-        <!-- You can include a navigation menu or any other header elements as needed -->
+        <h1>Currently Reading</h1>
     </header>
 
     <main>
-        <h2>Book List</h2>
-        <ul id="book-list">
-            {% for book in books %}
-            <li class="{% if book.finished_reading %}hidden{% endif %}">
-                <form action="{% url 'book_finish_reading' pk=book.pk %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="finished_reading" value="true">
-                    <!-- Link the book title to its details page -->
-                    <a href="{% url 'book_detail' pk=book.pk %}" class="{% if book.pk in completed_books_ids %}completed{% endif %}">
-                        {{ book.title }}
-                    </a>
-                    {% if not book.finished_reading %}
-                    <button type="button" class="finish-reading-btn" data-book-id="{{ book.pk }}">Finished reading</button>
-                    {% endif %}
-                </form>
-            </li>
-            {% endfor %}
-        </ul>
-        <a href="{% url 'book_new' %}">Add a new book</a>
-
-        <!-- Add any additional content related to the book list here -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                    <tr class="{% if book.finished_reading %}hidden{% endif %}">
+                        <td>
+                            <a href="{% url 'book_detail' pk=book.pk %}" class="{% if book.pk in completed_books_ids %}completed{% endif %}">
+                                {{ book.title }}
+                            </a>
+                        </td>
+                        <td>
+                            <form action="{% url 'book_finish_reading' pk=book.pk %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="finished_reading" value="true">
+                                {% if not book.finished_reading %}
+                                <button type="button" class="finish-reading-btn" data-book-id="{{ book.pk }}">Completed</button>
+                                {% endif %}
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- Add a new book button -->
+            <a href="{% url 'book_new' %}" class="pink-button">Add a new book</a>
+        </div>
     </main>
 
     <footer>
-        <!-- Add your footer content here -->
-        <!-- You can include copyright information, links, or any other footer elements as needed -->
+        &copy; 2023 Litlist: Beyond the Cover. All rights reserved.
     </footer>
 
     <!-- Add any additional scripts or other elements before the closing body tag -->
