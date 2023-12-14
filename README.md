@@ -1,6 +1,6 @@
 # LitList : Beyond the cover
 
-Book Logger is a simple web application that allows users to log and track the books they have read. Users can add new books, mark books as completed, and write reviews for the books they finish. The application provides a convenient way to organize and reflect on your reading experiences.
+LitList is a simple web application that allows users to log and track the books they have read. Users can add new books, mark books as completed, and write reviews for the books they finish. The application provides a convenient way to organize and reflect on your reading experiences.
 
 ## Features
 
