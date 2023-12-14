@@ -82,10 +82,3 @@ Make sure you have the following installed on your system:
 
 10. Start logging your books!
 
-## Contributing
-
-Contributions are welcome! If you have any suggestions, feature requests, or find any issues, please open an [issue](https://github.com/yourusername/book-logger/issues) or submit a [pull request](https://github.com/yourusername/book-logger/pulls).
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
