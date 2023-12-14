@@ -1,5 +1,3 @@
-<!-- templates/books/view_saved_review.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,44 +8,103 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Saved Review</title>
-    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+    <style>
+        body {
+            background-color: #4158D0 !important;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            color: #000000 !important;
+            font-family: "Lato", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        header { 
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        main {
+            text-align: left;
+            width: 80%;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar {
+            width: 100%;
+            background-color: #ff69b4; /* Pink color */
+            padding: 15px 0;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+        }
+
+        h1 {
+            color: #ffffff;
+            margin: 40px 0;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        a.button {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #ff69b4;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 
 <body>
     {% include "navigation.html" %}
     <header>
-        <!-- Add your header content here -->
-        <h1>View Saved Review</h1>
-        <!-- You can include a navigation menu or any other header elements as needed -->
+        <h1> Review</h1>
     </header>
+
+
 
     <main>
         <h2>{{ book.title }}</h2>
-        <p>Author: {{ review.author }}</p>
-        <p>Rating: {{ review.rating }}</p>
-        <p>Expectations Met: {{ review.expectations }}</p>
-        <p>Engaging Plot: {{ review.engaging_plot }}</p>
-        <p>Connection to Characters: {{ review.connection_characters }}</p>
-        <p>Enjoyed Writing: {{ review.enjoyed_writing }}</p>
-        <p>Confusing Elements: {{ review.confusing_elements }}</p>
-        <p>Themes Resonated: {{ review.themes_resonated }}</p>
-        <p>Unexpected Twists: {{ review.unexpected_twists }}</p>
-        <p>Lasting Impression: {{ review.lasting_impression }}</p>
-        <p>Recommendation: {{ review.recommendation }}</p>
-        <p>Influence on Thoughts: {{ review.influence_on_thoughts }}</p>
-        
-        {% if review.review_text %}
+        <p>Author: {% if review %}{{ review.author }}{% endif %}</p>
+        <p>Rating: {% if review %}{{ review.rating }}{% endif %}</p>
+        <p>Expectations Met: {% if review %}{{ review.expectations }}{% endif %}</p>
+        <p>Engaging Plot: {% if review %}{{ review.engaging_plot }}{% endif %}</p>
+        <p>Connection to Characters: {% if review %}{{ review.connection_characters }}{% endif %}</p>
+        <p>Enjoyed Writing: {% if review %}{{ review.enjoyed_writing }}{% endif %}</p>
+        <p>Confusing Elements: {% if review %}{{ review.confusing_elements }}{% endif %}</p>
+        <p>Themes Resonated: {% if review %}{{ review.themes_resonated }}{% endif %}</p>
+        <p>Unexpected Twists: {% if review %}{{ review.unexpected_twists }}{% endif %}</p>
+        <p>Lasting Impression: {% if review %}{{ review.lasting_impression }}{% endif %}</p>
+        <p>Recommendation: {% if review %}{{ review.recommendation }}{% endif %}</p>
+        <p>Influence on Thoughts: {% if review %}{{ review.influence_on_thoughts }}{% endif %}</p>
+
+        {% if review and review.review_text %}
             <h2>Additional Comments</h2>
             <p>{{ review.review_text }}</p>
         {% endif %}
     </main>
 
     <footer>
-        <!-- Add your footer content here -->
-        <!-- You can include copyright information, links, or any other footer elements as needed -->
+        <a href="{% url 'completed_books' %}" class="button">Back to Completed Books</a>
     </footer>
-
-    <!-- Add any additional scripts or other elements before the closing body tag -->
 </body>
 
 </html>

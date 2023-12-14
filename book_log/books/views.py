@@ -134,7 +134,17 @@ def save_review(request, pk):
 
             review.book = book
             review.save()
+
+            # Add debugging statements
+            print(f"Review saved successfully for book with ID {book.pk}")
+            print(f"Review details: {review}")
+
             return redirect('view_saved_review', pk=book.pk)  # Redirect to view_saved_review
+        else:
+            # Add debugging statements for form errors
+            print("Form is not valid. Form errors:")
+            print(form.errors)
+
     else:
         form = ReviewForm()
 
@@ -144,9 +154,11 @@ def view_saved_review(request, pk):
     book = get_object_or_404(Book, pk=pk)
     reviews = Review.objects.filter(book=book)
     
-    # Assuming you want to display the first review in the template
-    review = reviews.first()
+    # Check if there are any reviews for the book
+    if reviews.exists():
+        # Assuming you want to display the first review in the template
+        review = reviews.first()
+    else:
+        review = None
 
     return render(request, 'books/view_saved_review.html', {'book': book, 'review': review})
-
-

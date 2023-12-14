@@ -1,5 +1,6 @@
 # forms.py
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import Book, Genre, Review
 
 class BookForm(forms.ModelForm):
@@ -12,10 +13,6 @@ class BookForm(forms.ModelForm):
         self.fields['genres'].widget = forms.CheckboxSelectMultiple()
         self.fields['genres'].queryset = Genre.objects.all()
         self.fields['genres'].required = True
-
-# forms.py
-
-# ...
 
 class ReviewForm(forms.ModelForm):
     class Meta:
@@ -40,3 +37,13 @@ class ReviewForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['author'].widget.attrs['placeholder'] = 'Your Name'
+
+    # Add a custom validation for the 'rating' field
+    def clean_rating(self):
+        rating = self.cleaned_data['rating']
+
+        # Check if the rating is within a specific range (e.g., 1 to 5)
+        if not 1 <= rating <= 5:
+            raise ValidationError('Rating must be between 1 and 5.')
+
+        return rating

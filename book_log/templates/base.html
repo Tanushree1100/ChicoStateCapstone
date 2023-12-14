@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Your Website Title{% endblock %}</title>
+        <!-- Link to your CSS file -->
+        {% block styles %}{% endblock %}
+        <!-- Add any additional meta tags, stylesheets, or scripts here -->
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+     <h1>base template</h1>
+    {% endblock %} <!-- This is where the content of extended templates will go -->
+
+    <!-- Your content goes here -->
+
+    {% block scripts %}{% endblock %} <!-- Additional scripts and elements go here -->
+</body>
+</html>

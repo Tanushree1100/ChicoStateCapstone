@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% include "bootstrap.html" %}
     {% load static %}
@@ -7,12 +8,139 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Search</title>
+    <style>
+        body {
+            background-color: #4158D0;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            color: #ffffff; /* Updated to white */
+            font-family: "Lato", sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #262725;
+            padding: 15px 0;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+        }
+
+        h1 {
+            color: #FFFFFF;
+            font-size: 600%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: blink 4s infinite;
+            margin-bottom: 20px;
+            margin-top: 160px; 
+        }
+
+        @keyframes blink {
+            0%,25%,50%,75%,100% {
+                opacity: 1;
+            }
+            25%, 75% {
+                opacity: 0.5;
+            }
+        }
+
+        button {
+            font-family: "Lato", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background: #FFFFFF; /* Updated to white */
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            color: #FF69B4;
+            font-size: 12px;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        button:hover, button:active, button:focus {
+            background: #FFFFFF; /* Updated to white on hover/active/focus */
+            color: #FF69B4;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            width: 100%;
+            background-color: #30302f;
+            padding: 15px 0;
+            color: #FFFFFF;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+        }
+
+        .button-container {
+            text-align: right;
+            width: 60%;
+            padding: 0 20px;
+        }
+
+        form {
+            margin-top: 20px; /* Added margin to the form */
+        }
+
+        label {
+            color: #FFFFFF; /* Updated to white */
+            margin-right: 10px; /* Added margin for spacing */
+        }
+
+        input {
+            padding: 10px; /* Adjusted padding for larger size */
+            width: 400px; /* Adjusted width for larger size */
+            border: 1px solid #FFFFFF; /* Updated to white border */
+            border-radius: 5px;
+            margin-right: 10px; /* Added margin for spacing */
+        }
+
+        button[type="submit"] {
+            width: auto; /* Adjusted width to fit content */
+            padding: 10px 20px; /* Adjusted padding for larger size */
+            margin-top: 0; /* Removed top margin */
+        }
+
+        ul {
+            list-style: none; /* Removed default list styles */
+            padding: 0; /* Removed default padding */
+        }
+
+        li {
+            margin-bottom: 20px; /* Added margin between list items */
+        }
+
+        p {
+            color: #FFFFFF; /* Updated to white */
+        }
+    </style>
 </head>
+
 <body>
     {% include "navigation.html" %}
     <h1>Book Search</h1>
     <form method="get">
-        <label for="search">Search for books:</label>
+        <label for="search"></label>
         <input type="text" name="q" id="search" value="{{ query }}">
         <button type="submit">Search</button>
     </form>
@@ -31,5 +159,10 @@
     {% else %}
         <p>No results found.</p>
     {% endif %}
+
+    <div class="footer">
+        &copy; 2023 Litlist: Beyond the Cover. All rights reserved.
+    </div>
 </body>
+
 </html>

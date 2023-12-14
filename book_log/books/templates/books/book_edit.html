@@ -41,14 +41,19 @@
         }
     
         main {
-            width: 80%; /* Set the width of the main content */
-            margin-top: 50px; /* Increase top margin */
-            background: rgba(255, 255, 255, 0.8); /* Translucent white background */
-            box-shadow: 0 0 20px rgba(255, 105, 180, 0.1); /* Light pink box shadow */
-            border-radius: 15px; /* Round out container edges */
-            padding: 20px; /* Add padding inside the main content */
-            margin: 0 auto; /* Center the main content on the page */
-        }
+    width: 80%; /* Set the width of the main content */
+    margin-top: 50px; /* Increase top margin */
+    background: rgba(255, 255, 255, 0.8); /* Translucent white background */
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.1); /* Light pink box shadow */
+    border-radius: 15px; /* Round out container edges */
+    padding: 20px; /* Add padding inside the main content */
+    margin-left: 0 auto; /* Center the main content on the page */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    justify-content: flex-start; /* Align content to the left */
+}
+
     
         form {
             width: 100%;
@@ -67,7 +72,7 @@
     
         input,
         select {
-            width: 100%;
+            width: 200%;
             padding: 10px;
             margin-bottom: 15px;
             box-sizing: border-box;

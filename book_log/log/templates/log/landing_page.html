@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% include "bootstrap.html" %}
     {% load static %}
@@ -36,7 +37,7 @@
             font-size: 600%;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             animation: blink 4s infinite;
-            margin-bottom: 20px; /* Added margin to separate from the button */
+            margin-bottom: 20px;
         }
 
         @keyframes blink {
@@ -52,27 +53,28 @@
             font-family: "Lato", sans-serif;
             text-transform: uppercase;
             outline: 0;
-            background: #ff69b4; /* Updated to the desired color */
-            width: 200%; /* Adjusted width to 60% */
+            background: #FFFFFF; /* Updated to white */
+            width: 100%;
             border: 0;
-            padding: 10px; /* Adjusted padding for a smaller size */
-            color: #FFFFFF;
-            font-size: 12px; /* Adjusted font size for a smaller size */
+            padding: 15px;
+            color: #FF69B4; /* Updated to pink text */
+            font-size: 12px;
             -webkit-transition: all 0.3s ease;
             transition: all 0.3s ease;
             cursor: pointer;
-            border-radius: 5px; /* Added border-radius for rounded edges */
-            margin-top: 10px; /* Added margin to separate from the heading */
+            border-radius: 5px;
+            margin-top: 10px;
         }
 
         button:hover, button:active, button:focus {
-            background: #ff69b4;
+            background: #FFFFFF; /* Updated to white on hover/active/focus */
+            color: #FF69B4; /* Updated to pink text on hover/active/focus */
         }
 
         a {
             color: #ffffff;
             text-decoration: none;
-            margin-top: 15px; /* Added margin to separate from the button */
+            margin-top: 15px;
         }
 
         a:hover {
@@ -84,18 +86,19 @@
             background-color: #30302f;
             padding: 15px 0;
             color: #FFFFFF;
-            text-align: center; /* Center text */
+            text-align: center;
             position: fixed;
             bottom: 0;
         }
 
         .button-container {
-            text-align: right; /* Align the button to the center */
-            width: 60%; /* Make sure it spans the full width */
-            padding: 0 20px; /* Adjust padding as needed */
+            text-align: right;
+            width: 60%;
+            padding: 0 20px;
         }
     </style>
 </head>
+
 <body>
     {% include "navigation.html" %}
     <h1>Litlist: Beyond the Cover</h1>
@@ -111,4 +114,5 @@
         &copy; 2023 Litlist: Beyond the Cover. All rights reserved.
     </div>
 </body>
+
 </html>
